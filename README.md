@@ -1,58 +1,17 @@
-# End-to-End Data Engineering Pipeline using Kafka, Spark, Airflow & PostgreSQL
+# Building a simple End-to-End Data Engineering System 
+This project uses different tools such as kafka, airflow, spark, postgres and docker. 
 
-## 📌 Overview
-This project demonstrates the design and implementation of an end-to-end data engineering pipeline that ingests real-time data from an external API, processes it using Apache Spark, orchestrates workflows with Apache Airflow, and stores the transformed data in PostgreSQL.  
+A step by step guide to run this pipeline: https://medium.com/@hamzagharbi_19502/end-to-end-data-engineering-system-on-real-data-with-kafka-spark-airflow-postgres-and-docker-a70e18df4090
 
-The entire system is containerized using Docker and Docker Compose, making it easy to deploy, run, and reproduce locally.
+## Overview
 
----
+1. Data Streaming: Initially, data is streamed from the API into a Kafka topic.
+  
+2. Data Processing: A Spark job then takes over, consuming the data from the Kafka topic and transferring it to a PostgreSQL database.
+   
+3. Scheduling with Airflow: Both the streaming task and the Spark job are orchestrated using Airflow. While in a real-world scenario, the Kafka producer would constantly listen to the API, for demonstration purposes, we'll schedule the Kafka streaming task to run daily. Once the streaming is complete, the Spark job processes the data, making it ready for use by the LLM application.
 
-## 🎯 Problem Statement
-Real-time data generated from APIs often needs to be ingested, processed, and stored reliably for analytical and downstream use cases.  
-This project showcases how to build a scalable and fault-tolerant data pipeline using modern data engineering tools and best practices.
+All of these tools will be built and run using docker, and more specifically docker-compose.
 
----
+![chatuml-diagram](https://github.com/HamzaG737/data-engineering-project/assets/71135893/ce92b731-038a-4d9c-9722-f97a6ba51153)
 
-## 🏗 Architecture Overview
-The pipeline consists of the following layers:
-
-- **Ingestion Layer**: Kafka is used to stream real-time data from an external API.
-- **Processing Layer**: Apache Spark consumes messages from Kafka, applies transformations, and prepares data for storage.
-- **Orchestration Layer**: Apache Airflow schedules and orchestrates ingestion and processing tasks.
-- **Storage Layer**: PostgreSQL stores the processed data for analytical querying.
-- **Infrastructure**: Docker and Docker Compose are used to containerize and manage all services.
-
-> The architecture diagram provides a high-level view of data flow across the system.
-
----
-
-## 🔄 Data Flow
-1. Data is fetched from an external API and published to a Kafka topic  
-2. Apache Spark consumes data from Kafka and performs necessary transformations  
-3. Transformed data is written into PostgreSQL tables  
-4. Apache Airflow orchestrates the workflow, ensuring task dependencies and scheduling  
-5. Docker Compose manages all services for local execution  
-
----
-
-## 🧰 Technologies Used
-- **Python**
-- **Apache Kafka**
-- **Apache Spark**
-- **Apache Airflow**
-- **PostgreSQL**
-- **Docker & Docker Compose**
-
----
-
-## ⚙️ How to Run the Project
-
-### Prerequisites
-- Docker
-- Docker Compose
-
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url>
-   cd <your-repo-name>
